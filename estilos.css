@@ -1,0 +1,188 @@
+/* TIPOGRAFÍA Y COLOR BASE */
+
+body {
+    font-family: Georgia, "Times New Roman", serif;
+    color: #2C1A0E;
+    background-color: #F5F0E8;
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+
+/* ENCABEZADOS */
+
+h1 {
+    font-family: "Trebuchet MS", "Lucida Grande", sans-serif;
+    color: #F0DFC0;
+    font-size: 2.2em;
+    letter-spacing: 0.05em;
+    text-align: center;
+}
+
+h2 {
+    font-family: "Trebuchet MS", "Lucida Grande", sans-serif;
+    color: #6B3A2A;
+    font-size: 1.5em;
+    letter-spacing: 0.02em;
+}
+
+h3 {
+    font-family: "Trebuchet MS", "Lucida Grande", sans-serif;
+    color: #8B5E3C;
+    font-size: 1.15em;
+}
+
+
+/* HEADER */
+
+header {
+    background-color: #2C1A0E;
+    color: #F0DFC0;
+    text-align: center;
+}
+
+header p {
+    color: #C4A882;
+    font-style: italic;
+    font-size: 1.05em;
+    text-align: center;
+}
+
+
+/* NAVEGACIÓN */
+
+nav {
+    text-align: center;
+    font-family: "Trebuchet MS", sans-serif;
+    font-size: 1em;
+}
+
+nav a {
+    color: #E8D5B5;
+    font-size: 1em;
+    text-decoration: none;
+    font-weight: bold;
+    letter-spacing: 0.04em;
+}
+
+nav a:hover {
+    color: #FFFFFF;
+    text-decoration: underline;
+}
+
+
+/* PÁRRAFOS */
+
+p {
+    color: #3A2218;
+    font-size: 1em;
+    line-height: 1.8;
+    text-align: justify;
+}
+
+
+/* LISTAS */
+
+ul, ol {
+    font-family: Georgia, serif;
+    color: #2C1A0E;
+    font-size: 1em;
+    line-height: 1.9;
+}
+
+li {
+    color: #3A2218;
+}
+
+
+/* ENLACES */
+
+a {
+    color: #6B3A2A;
+    text-decoration: underline;
+}
+
+a:hover {
+    color: #3D1F10;
+}
+
+a:visited {
+    color: #8B5E3C;
+}
+
+
+/* FIGCAPTION */
+
+figcaption {
+    color: #8B5E3C;
+    font-style: italic;
+    font-size: 0.88em;
+    text-align: left;
+}
+
+
+/* TABLA */
+
+table {
+    font-family: "Trebuchet MS", sans-serif;
+    font-size: 0.95em;
+    color: #2C1A0E;
+    border-collapse: collapse;
+}
+
+th {
+    background-color: #6B3A2A;
+    color: #F5F0E8;
+    font-size: 1em;
+    text-align: center;
+    letter-spacing: 0.03em;
+    font-weight: bold;
+}
+
+td {
+    background-color: #FBF6EE;
+    color: #3A2218;
+    text-align: center;
+    font-size: 0.9em;
+    border: 1px solid #C4A882;
+}
+
+tr:nth-child(even) td {
+    background-color: #F0E8D8;
+}
+
+/* Celda del almuerzo (colspan) */
+td[colspan] {
+    background-color: #E8D5B5;
+    color: #6B3A2A;
+    font-weight: bold;
+    font-style: italic;
+    text-align: center;
+}
+
+/* Celda del proyecto personal (rowspan) */
+td[rowspan] {
+    background-color: #D4B896;
+    color: #3D1F10;
+    font-weight: bold;
+    text-align: center;
+}
+
+
+/* FOOTER */
+
+footer {
+    background-color: #2C1A0E;
+    color: #C4A882;
+    text-align: center;
+    font-family: "Trebuchet MS", sans-serif;
+    font-size: 0.88em;
+}
+
+footer a {
+    color: #E8D5B5;
+}
+
+footer a:hover {
+    color: #FFFFFF;
+}
