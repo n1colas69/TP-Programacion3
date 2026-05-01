@@ -2,107 +2,366 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width">
-    <title>Café de Especialidad</title>
-    <link rel="stylesheet" href="estilos.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ONLY ZS | Vintage & Second Hand</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-    <header>
-        <h1>Café de Especialidad</h1>
-        <p>Una guía apasionada para entender y disfrutar el mejor café del mundo</p>
-        <nav>
-            <a href="index.html">Inicio</a> |
-            <a href="receta.html">Receta</a> |
-            <a href="horario.html">Horario</a>
+    <div id="toast-container"></div>
+ 
+    <!-- BUSCADOR OVERLAY -->
+    <div class="search-overlay" id="searchOverlay">
+        <div class="search-content">
+            <button class="close-search" id="closeSearch"><i class="fas fa-times"></i></button>
+            <p class="search-label">¿QUÉ ESTÁS BUSCANDO?</p>
+            <input type="text" id="searchInput" placeholder="Remera, campera, accesorio...">
+        </div>
+    </div>
+ 
+    <!-- CARRITO DRAWER -->
+    <div class="cart-overlay" id="cartOverlay"></div>
+    <div class="cart-drawer" id="cartDrawer">
+        <div class="cart-header">
+            <h3>TU CARRITO</h3>
+            <button id="closeCart" aria-label="Cerrar carrito"><i class="fas fa-arrow-right"></i></button>
+        </div>
+        <div class="cart-items" id="cartItems"></div>
+        <div class="cart-footer">
+            <div class="coupon-box">
+                <input type="text" id="couponInput" placeholder="Código de descuento">
+                <button id="applyCouponBtn">APLICAR</button>
+            </div>
+            <div class="cart-totals">
+                <div class="total-row" id="originalTotalRow" style="display: none;">
+                    <span>Subtotal</span>
+                    <span class="crossed-price" id="cartSubtotal">$0</span>
+                </div>
+                <div class="total-row final-total">
+                    <span>Total</span>
+                    <span class="accent-price" id="cartTotal">$0</span>
+                </div>
+            </div>
+            <button class="checkout-btn" id="checkoutBtn">FINALIZAR COMPRA <i class="fas fa-arrow-right"></i></button>
+        </div>
+    </div>
+ 
+    <!-- WISHLIST DRAWER -->
+    <div class="wishlist-overlay" id="wishlistOverlay"></div>
+    <div class="wishlist-drawer" id="wishlistDrawer">
+        <div class="cart-header">
+            <h3>MIS FAVORITOS</h3>
+            <button id="closeWishlist" aria-label="Cerrar favoritos"><i class="fas fa-arrow-right"></i></button>
+        </div>
+        <div class="cart-items" id="wishlistItems"></div>
+    </div>
+ 
+    <!-- MODAL CONTRASEÑA ADMIN GALERÍA (oculto, solo accesible por shortcut) -->
+    <div class="modal-overlay" id="adminModalOverlay">
+        <div class="modal-box admin-modal">
+            <button class="modal-close" id="adminModalClose"><i class="fas fa-times"></i></button>
+            <div class="admin-modal-icon"><i class="fas fa-lock"></i></div>
+            <h3>ACCESO RESTRINGIDO</h3>
+            <p>Ingresá la contraseña de administrador para continuar.</p>
+            <div class="admin-input-wrap">
+                <input type="password" id="adminPasswordInput" placeholder="Contraseña" autocomplete="off">
+                <button id="adminPasswordSubmit" class="btn btn-dark">INGRESAR</button>
+            </div>
+            <p id="adminPasswordError" class="admin-error"></p>
+        </div>
+    </div>
+ 
+    <!-- NAVBAR -->
+    <header id="navbar">
+        <div class="nav-container">
+            <a href="#hero" class="logo">ZS</a>
+            <nav class="desktop-nav">
+                <a href="#hero">INICIO</a>
+                <a href="#categories">COLECCIONES</a>
+                <a href="#products">PRODUCTOS</a>
+                <a href="#gallery">GALERÍA</a>
+                <a href="#footer">NOSOTROS</a>
+            </nav>
+            <div class="nav-icons">
+                <button id="searchBtn" aria-label="Buscar"><i class="fas fa-search"></i></button>
+                <button id="wishlistBtn" aria-label="Lista de deseos">
+                    <i class="far fa-heart"></i>
+                    <span class="badge" id="wishlistCount">0</span>
+                </button>
+                <button id="cartBtn" aria-label="Carrito">
+                    <i class="fas fa-bag-shopping"></i>
+                    <span class="badge" id="cartCount">0</span>
+                </button>
+                <button class="hamburger" id="hamburgerBtn" aria-label="Menú"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+        <nav class="mobile-nav" id="mobileNav">
+            <a href="#hero" class="mobile-link">INICIO</a>
+            <a href="#categories" class="mobile-link">COLECCIONES</a>
+            <a href="#products" class="mobile-link">PRODUCTOS</a>
+            <a href="#gallery" class="mobile-link">GALERÍA</a>
+            <a href="#footer" class="mobile-link">NOSOTROS</a>
         </nav>
     </header>
-
-    <main>
-
-        <section>
-            <h2>¿Qué es el Café de Especialidad?</h2>
-            <article>
-                <p>
-                    El café de especialidad es aquel que obtiene una puntuación superior a 80 puntos sobre 100
-                    según los estándares de la Specialty Coffee Association (SCA). Se trata de granos cultivados
-                    con cuidado excepcional, cosechados en el momento óptimo y procesados con precisión.
-                </p>
-                <p>
-                    A diferencia del café comercial, el café de especialidad prioriza la trazabilidad, el origen
-                    y el trabajo del productor. Cada taza cuenta una historia: la del suelo, el clima y las manos
-                    que lo cultivaron.
-                </p>
-                <p>Para mas informacion visitar la pagina <a href="https://sca.coffee/">SCA</a></p>
-            </article>
-        </section>
-
-        <section>
-            <h2>Galería de Imágenes</h2>
-
-            <figure>
-                <img src="https://phantom.estaticos-marca.com/4d994105d19122da464c984f71efa8d3/resize/660/f/webp/assets/multimedia/imagenes/2023/11/15/17000681363132.jpg" alt="Taza de espresso clásico">
-                <figcaption>Espresso clásico</figcaption>
-            </figure>
-
-            <figure>
-                <img src="images/cafe-local.png" alt="Café preparado en casa">
-                <figcaption>Café en casa</figcaption>
-            </figure>
-
-        </section>
-
-        <section>
-            <h2>Orígenes Destacados</h2>
-
-            <article>
-                <h3>Etiopía</h3>
-                <p>
-                    Considerado el hogar del café, Etiopía produce algunos de los granos más complejos y florales
-                    del mundo. Las variedades de Yirgacheffe y Sidamo son apreciadas por su acidez brillante
-                    y sus notas afrutadas.
-                </p>
-            </article>
-
-            <article>
-                <h3>Colombia</h3>
-                <p>
-                    Colombia es sinónimo de calidad cafetera. Su geografía montañosa y su clima templado crean
-                    condiciones perfectas para el cultivo de arábica de alta calidad, con perfiles que van
-                    desde el chocolate y caramelo hasta los frutos rojos.
-                </p>
-            </article>
-
-            <article>
-                <h3>Argentina</h3>
-                <p>
-                    Si bien Argentina no es un país productor de café, cuenta con una escena cafetera en pleno
-                    crecimiento. Ciudades como Buenos Aires, Córdoba y Mendoza tienen una oferta creciente de
-                    cafeterías de especialidad que importan y tuestan granos de primer nivel.
-                </p>
-            </article>
-
-        </section>
-
-        <section>
-            <h2>Métodos de Preparación</h2>
-            <p>
-                Cada método extrae sabores distintos del mismo grano. El espresso concentra los aceites y
-                produce una crema característica. El pour over revela la acidez y los matices florales.
-                La prensa francesa entrega un cuerpo denso y achocolatado.
-            </p>
-            <p>
-                Explorar distintos métodos es parte esencial del viaje hacia el café de especialidad.
-                No existe un método superior: cada uno tiene su momento, su ritual y su encanto particular.
-            </p>
-        </section>
-
-    </main>
-
-    <footer>
-        <p>Trabajo Práctico Nº1 — Programación 3 — UTN</p>
-        <p><a href="index.html">Volver al inicio</a></p>
+ 
+    <!-- HERO -->
+    <section class="hero" id="hero">
+        <div class="hero-bg-overlay"></div>
+        <div class="hero-content reveal">
+            <span class="hero-tag">VINTAGE · SECOND HAND · SELECCIONADO A MANO</span>
+            <h1>ONLY<br>ZS</h1>
+            <p>Prendas únicas que cuentan historias.</p>
+            <div class="hero-buttons">
+                <a href="#products" class="btn btn-primary">VER PRODUCTOS</a>
+                <a href="#categories" class="btn btn-outline">EXPLORAR</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>SCROLL</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+ 
+    <!-- MARQUEE -->
+    <div class="marquee">
+        <div class="marquee-content" aria-hidden="true">
+            CARHARTT <span class="dot">·</span> CHAPS <span class="dot">·</span> DICKIES <span class="dot">·</span> JANSPORT <span class="dot">·</span> NAUTICA <span class="dot">·</span> POLO RALPH LAUREN <span class="dot">·</span> REAL TREE <span class="dot">·</span> RUSSELL <span class="dot">·</span>
+            CARHARTT <span class="dot">·</span> CHAPS <span class="dot">·</span> DICKIES <span class="dot">·</span> JANSPORT <span class="dot">·</span> NAUTICA <span class="dot">·</span> POLO RALPH LAUREN <span class="dot">·</span> REAL TREE <span class="dot">·</span> RUSSELL <span class="dot">·</span>
+        </div>
+    </div>
+ 
+    <!-- CATEGORÍAS -->
+    <section class="categories section-padding" id="categories">
+        <div class="section-header reveal">
+            <span class="section-tag">COLECCIONES</span>
+            <h2 class="section-title">EXPLORÁ LO QUE TENEMOS</h2>
+        </div>
+        <div class="categories-grid reveal">
+            <div class="category-card" data-category="Remeras" style="background-image: url('https://placehold.co/600x800/1a1a1a/FFF?text=CHOMBAS');">
+                <div class="category-overlay"></div>
+                <div class="category-content">
+                    <h3>CHOMBAS</h3>
+                    <p>+3 Productos</p>
+                    <button class="btn btn-outline-white btn-sm">Ver colección</button>
+                </div>
+            </div>
+            <div class="category-card featured" data-category="Accesorios" style="background-image: url('https://placehold.co/600x800/111/FFF?text=ACCESORIOS');">
+                <div class="category-overlay"></div>
+                <div class="category-content">
+                    <h3>ACCESORIOS</h3>
+                    <p>+20 Productos</p>
+                    <button class="btn btn-outline-white btn-sm">Ver colección</button>
+                </div>
+            </div>
+            <div class="category-card" data-category="Abrigos" style="background-image: url('https://placehold.co/600x800/222/FFF?text=ABRIGOS');">
+                <div class="category-overlay"></div>
+                <div class="category-content">
+                    <h3>ABRIGOS</h3>
+                    <p>+35 Productos</p>
+                    <button class="btn btn-outline-white btn-sm">Ver colección</button>
+                </div>
+            </div>
+        </div>
+    </section>
+ 
+    <!-- FEATURES STRIP -->
+    <div class="features-strip reveal">
+        <div class="feature-item">
+            <i class="fas fa-truck-fast"></i>
+            <div>
+                <strong>ENVÍO A TODO EL PAÍS</strong>
+                <span>Correo privado, rápido y seguro</span>
+            </div>
+        </div>
+        <div class="feature-divider"></div>
+        <div class="feature-item">
+            <i class="fas fa-shield-halved"></i>
+            <div>
+                <strong>CALIDAD VERIFICADA</strong>
+                <span>Cada prenda revisada y lavada</span>
+            </div>
+        </div>
+        <div class="feature-divider"></div>
+        <div class="feature-item">
+            <i class="fas fa-rotate-left"></i>
+            <div>
+                <strong>CAMBIOS EN 7 DÍAS</strong>
+                <span>Sin preguntas, sin problemas</span>
+            </div>
+        </div>
+        <div class="feature-divider"></div>
+        <div class="feature-item">
+            <i class="fas fa-gem"></i>
+            <div>
+                <strong>PIEZAS ÚNICAS 1/1</strong>
+                <span>Seleccionadas a mano</span>
+            </div>
+        </div>
+    </div>
+ 
+    <!-- PRODUCTOS -->
+    <section class="products section-padding" id="products">
+        <div class="section-header reveal">
+            <span class="section-tag">CATÁLOGO</span>
+            <h2 class="section-title">LO MÁS BUSCADO</h2>
+        </div>
+        <div class="filters reveal">
+            <button class="filter-btn active" data-filter="all">TODOS</button>
+            <button class="filter-btn" data-filter="Remeras">REMERAS</button>
+            <button class="filter-btn" data-filter="Abrigos">ABRIGOS</button>
+            <button class="filter-btn" data-filter="Accesorios">ACCESORIOS</button>
+            <button class="filter-btn" data-filter="Pantalones">PANTALONES</button>
+        </div>
+        <div class="products-grid reveal" id="productsGrid"></div>
+    </section>
+ 
+    <!-- TESTIMONIOS -->
+    <section class="testimonials section-padding reveal" id="testimonials">
+        <div class="section-header">
+            <span class="section-tag">RESEÑAS</span>
+            <h2 class="section-title">LO QUE DICEN</h2>
+        </div>
+        <div class="slider-wrapper">
+            <button class="slider-arrow slider-prev" id="sliderPrev" aria-label="Anterior"><i class="fas fa-chevron-left"></i></button>
+            <div class="slider-container">
+                <div class="slider" id="testimonialSlider">
+                    <div class="slide">
+                        <div class="stars">★★★★★</div>
+                        <p>"Prenda nomas."</p>
+                        <div class="slide-author">
+                            <img src="https://placehold.co/48x48/1a1a1a/FFF?text=A" alt="Arles" class="avatar">
+                            <span>@Arles</span>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <div class="stars">★★★★★</div>
+                        <p>"ZS🖤"</p>
+                        <div class="slide-author">
+                            <img src="https://placehold.co/48x48/1a1a1a/FFF?text=A" alt="Atilio" class="avatar">
+                            <span>@Atilio</span>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <div class="stars">★★★★★</div>
+                        <p>"Mansas remeeeeee."</p>
+                        <div class="slide-author">
+                            <img src="https://placehold.co/48x48/1a1a1a/FFF?text=P" alt="Profeeee" class="avatar">
+                            <span>@Profeeee</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="slider-arrow slider-next" id="sliderNext" aria-label="Siguiente"><i class="fas fa-chevron-right"></i></button>
+        </div>
+        <div class="slider-dots" id="sliderDots"></div>
+    </section>
+ 
+    <!-- GALERÍA DE CLIENTES -->
+    <section class="gallery section-padding" id="gallery">
+        <div class="section-header reveal">
+            <span class="section-tag">COMUNIDAD</span>
+            <h2 class="section-title">GALERÍA ZS</h2>
+        </div>
+        <p class="gallery-subtitle reveal">Looks reales de nuestra comunidad. <br>¿Compraste algo? Mandanos tu foto.</p>
+ 
+        <!-- Panel de subida: SOLO visible cuando el admin está autenticado -->
+        <div class="gallery-upload-area" id="galleryUploadArea" style="display:none;">
+            <label for="galleryUpload" class="btn btn-dark gallery-upload-btn">
+                <i class="fas fa-plus"></i> SUBIR FOTO
+            </label>
+            <input type="file" id="galleryUpload" accept="image/*" multiple style="display:none;">
+            <button class="btn-icon-outline" id="adminLogoutBtn" title="Cerrar sesión admin">
+                <i class="fas fa-sign-out-alt"></i> Salir
+            </button>
+        </div>
+ 
+        <div class="gallery-grid reveal" id="galleryGrid"></div>
+        <p class="gallery-empty-msg" id="galleryEmptyMsg">
+            <i class="fas fa-camera"></i><br>
+            Todavía no hay fotos en la galería.<br>
+            <small>¡Compartí tu look con nosotros por WhatsApp!</small>
+        </p>
+    </section>
+ 
+    <!-- NEWSLETTER -->
+    <section class="newsletter reveal">
+        <div class="newsletter-content">
+            <span class="section-tag light">COMUNIDAD</span>
+            <h2>SUMATE A LA FAMILIA ZS</h2>
+            <p>Suscribite y recibí un <strong>10% de descuento</strong> en tu primera compra.</p>
+            <form id="newsletterForm" class="newsletter-form" novalidate>
+                <div class="newsletter-input-wrap">
+                    <input type="email" id="newsletterEmail" placeholder="tu@email.com" required>
+                    <button type="submit" class="btn btn-dark">SUSCRIBIRME</button>
+                </div>
+            </form>
+            <p id="newsletterMsg" class="success-msg"></p>
+        </div>
+    </section>
+ 
+    <!-- FOOTER -->
+    <footer id="footer">
+        <div class="footer-top">
+            <div class="footer-brand">
+                <h2 class="logo">ZS</h2>
+                <p>Curaduría vintage &amp; second hand<br>de primer nivel. Zona Sur, La Rioja.</p>
+                <div class="social-icons">
+                    <a href="#" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://wa.me/543800000000" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="footer-links-group">
+                <div class="footer-col">
+                    <h4>TIENDA</h4>
+                    <a href="#categories">Colecciones</a>
+                    <a href="#products">Productos</a>
+                    <a href="#gallery">Galería</a>
+                </div>
+                <div class="footer-col">
+                    <h4>AYUDA</h4>
+                    <a href="#" id="linkEnvios">Envíos</a>
+                    <a href="#" id="linkDevoluciones">Devoluciones</a>
+                    <a href="#" id="linkFaq">FAQ</a>
+                </div>
+                <div class="footer-col">
+                    <h4>MEDIOS DE PAGO</h4>
+                    <div class="payment-methods">
+                        <i class="fab fa-cc-visa" title="Visa"></i>
+                        <i class="fab fa-cc-mastercard" title="Mastercard"></i>
+                        <i class="fas fa-money-bill-wave" title="Efectivo"></i>
+                    </div>
+                    <p class="footer-small">También aceptamos<br>MercadoPago y transferencia.</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 ONLY ZS. Todos los derechos reservados.</p>
+            <p class="footer-hint">Hecho con <span style="color:#e74c3c">♥</span> en La Rioja, Argentina.</p>
+        </div>
     </footer>
-
+ 
+    <!-- BOTÓN FLOTANTE WHATSAPP -->
+    <a href="https://wa.me/543800000000" class="whatsapp-float" target="_blank" aria-label="Contactar por WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+ 
+    <!-- BACK TO TOP -->
+    <button class="back-to-top" id="backToTop" aria-label="Volver arriba">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+ 
+    <!-- MODAL INFO FOOTER -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-box" id="modalBox">
+            <button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button>
+            <h3 id="modalTitle"></h3>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+ 
+    <script src="main.js"></script>
 </body>
 </html>
